@@ -282,7 +282,7 @@ class Home extends React.Component {
         console.log(actKeys[i+1])
         console.log(newCol1)
         console.log(newCol2)
-        if (parseInt(newCol1[1]) > parseInt(newCol2[1]))
+        if (parseInt(newCol1[0]) < parseInt(newCol2[0]))
         {
           let copy = _.cloneDeep(actKeys[i])
           actKeys[i] = actKeys[i+1]
@@ -292,6 +292,9 @@ class Home extends React.Component {
         else
         {
           counter+=1
+          console.log('kdencomemywaydeng')
+          console.log(newCol1)
+          console.log(newCol2)
         }
         console.log("num2")
       }
@@ -360,7 +363,7 @@ class Home extends React.Component {
         console.log("num1")
         console.log(actkeys[i])
         console.log(actkeys[i+1])
-        if (parseInt(newCol1[1]) > parseInt(newCol2[1]))
+        if (parseInt(newCol1[0]) < parseInt(newCol2[0]))
         {
           let copy = _.cloneDeep(actkeys[i])
           actkeys[i] = actkeys[i+1]
@@ -698,12 +701,12 @@ class SubTopics extends React.Component {
     {
       newColour[i] = this.limitVal(255,0,newColour[i])
     }
-
-    topics[index].timeStart = Date.now() - (newColour[0] / this.state.conversion)
-    topics[index].colour = `rgb(${newColour[0]},${newColour[1]},40)`
-    data[this.state.currentTopic]["topics"][index].timeStart = Date.now() - (newColour[0] / this.state.conversion)
-    data[this.state.currentTopic]["topics"][index].colour = `rgb(${newColour[0]},${newColour[1]},40)`
-    
+    let colour =  `rgb(${newColour[0]},${newColour[1]},40)` 
+    let timeStart = Date.now() - ((newColour[0]  / this.state.conversion)*1000)
+    topics[index].timeStart = timeStart
+    topics[index].colour = colour
+    data[this.state.currentTopic]["topics"][index].timeStart = timeStart
+    data[this.state.currentTopic]["topics"][index].colour = colour
     this.setState({
       timeStart : Date.now(),
       topics : topics,
@@ -731,10 +734,9 @@ class SubTopics extends React.Component {
     for (let i=0;i<tops.length;i++)
     {
       tops[i].colour = data[tops[i].text].colour
-  
     }
     let sorted = false
-    if (tops.length ===0)
+    if (tops.length === 0)
     {
       sorted = true
     }
@@ -778,6 +780,7 @@ class SubTopics extends React.Component {
   async componentDidMount() {
     //await AsyncStorage.clear()
     console.log("fuchyeak ***REMOVED***")
+    console.log(Date.now())
     console.log("hiya")
     console.log(this.state.currentData)
     let obj = null
@@ -960,6 +963,8 @@ class SubTopics extends React.Component {
     let colour = null
     let topics = this.state.topics
     console.log('likemike')
+    console.log('iwannabelikemike')
+    console.log(this.state.topics)
     for (let i = 0;i < this.state.topics.length; i++)
     {
       console.log('gobaby')
@@ -973,6 +978,7 @@ class SubTopics extends React.Component {
       let diff = ((time - timeStart) / 1000) * this.state.conversion
       let newDiff = diff - visualDiff
       console.log("stackpapertotheceiling")
+      console.log(newDiff)
       console.log("paper")
       console.log(diff)
       console.log(this.state.conversion)
@@ -1002,6 +1008,7 @@ class SubTopics extends React.Component {
       console.log(colour)
       topics[i].colour = colour
       topics[i].changeColour = 'rgb(0,255,0)'
+      topics[i].timeStart = timeStart
 
     }
     let sorted = false
