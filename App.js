@@ -131,6 +131,8 @@ class Home extends React.Component {
     {
       keys[w] = {'keys' : Object.keys(data)[w], 'depth' : 0}
     }
+    console.log("keys")
+    console.log(keys)
     for (let i=0;i<keys.length;i++)
     {
       let parent = data[keys[i].keys].parent
@@ -142,6 +144,8 @@ class Home extends React.Component {
       let tops = data[keys[i].keys]["topics"]
       let subs = data[keys[i].keys]["subjects"]
       let colour = [0,0,0]
+      console.log("hitdalittle***REMOVED***widdaheadnod104")
+      console.log(tops)
       for(let j=0;j<tops.length;j++)
       {
         let newColour = tops[j].colour.split(',')
@@ -310,10 +314,12 @@ class Home extends React.Component {
 
   async componentDidMount() {
     //await AsyncStorage.clear()
-    //topics = {"Physics" : {"parent" : null, "topics": null ,"subjects" : ["Physics Paper 1" , "Physics Paper 2"]} , "Physics Paper 1" : {"parent" : "Physics" , "subjects" : null , "topics" :["Moments", "Projectile Motion", "Momentum and Force", "Work, Energy and Power", "Materials", "Stars", "Particle Physics"]}, "Physics Paper 2" : {"parent" : "Physics", "subjects" : null, "topics" : ["Circuits" , "Waves", "Lasers" ]}, "Further Maths" : {"parent" : null, "topics" : null, "subjects" : ["FP1", "FS1" , "FM1"]}, "FP1" : {"parent" : "Further Maths", "subjects" : null, "topics" : ["Complex Numbers", "Matrices", "Roots, Series, Summation", "Further Vectors"]}, "FS1" : {"parent" : "Further Maths", "subjects" : null, "topics" : ["Discrete Distributions", "Poisson Distributions" ,"Chi Squared Test 1" ,"Chi Squared Test 2"]}, "FM1" : {"parent" : "Further Maths", "subjects" : null, "topics" : ["Momentum", "Energy" , "Collisons"]}, "Maths" : {"parent" : null, "topics" : null, "subjects" : ["Pure" , "Statistics", "Mechanics"]}, "Pure" : {"parent": "Maths", "subjects" : null, "topics" : ["Solving Quadratics", "Coordinate Geometry", "Trigonometry" , "Polynomials", "Binomials Expansion", "Transformations and Graphs", "Differentiation" , "Integration", "Vectors", "Logarithms"]}, "Statistics" : {"parent" : "Maths", "subjects" : null, "topics" : ["Data", "Hypothesis Testing"]}, "Chemistry" : {"parent" : null, "topics" : null, "subjects" : ["Chemistry Paper 1" , " Chemistry Paper 2"]}, "Chemistry Paper 1" : {"parent" : "Chemistry", "subjects" : null, "topics" : ["Basics, Atoms, Electrons", "Calculations" , "Bonding and Structures", "Periodicity", "Equilibrium Reactions and Acid-Base"]}, "Chemistry Paper 2" : {"parent" : "Chemistry", "subjects" : null, "topics" : ["Energy", "Rates of Reaction", "Impacts of Chemistry", "Hydrocarbons", "Halogenoalkanes", "Alcohols", "Carboxylic Acids", "Spectrosopy"]}}
-    //try{
-      //await AsyncStorage.setItem('topics', topics)
-    //}
+    //topics = {"Physics" : {'colour' : 'rgb(255,0,0)'"parent" : null, "topics": null ,"subjects" : ["Physics Paper 1" , "Physics Paper 2"]} , "Physics Paper 1" : {"parent" : "Physics" , "subjects" : null , "topics" :["Moments", "Projectile Motion", "Momentum and Force", "Work, Energy and Power", "Materials", "Stars", "Particle Physics"]}, "Physics Paper 2" : {"parent" : "Physics", "subjects" : null, "topics" : ["Circuits" , "Waves", "Lasers" ]}, "Further Maths" : {"parent" : null, "topics" : null, "subjects" : ["FP1", "FS1" , "FM1"]}, "FP1" : {"parent" : "Further Maths", "subjects" : null, "topics" : ["Complex Numbers", "Matrices", "Roots, Series, Summation", "Further Vectors"]}, "FS1" : {"parent" : "Further Maths", "subjects" : null, "topics" : ["Discrete Distributions", "Poisson Distributions" ,"Chi Squared Test 1" ,"Chi Squared Test 2"]}, "FM1" : {"parent" : "Further Maths", "subjects" : null, "topics" : ["Momentum", "Energy" , "Collisons"]}, "Maths" : {"parent" : null, "topics" : null, "subjects" : ["Pure" , "Statistics", "Mechanics"]}, "Pure" : {"parent": "Maths", "subjects" : null, "topics" : ["Solving Quadratics", "Coordinate Geometry", "Trigonometry" , "Polynomials", "Binomials Expansion", "Transformations and Graphs", "Differentiation" , "Integration", "Vectors", "Logarithms"]}, "Statistics" : {"parent" : "Maths", "subjects" : null, "topics" : ["Data", "Hypothesis Testing"]}, "Chemistry" : {"parent" : null, "topics" : null, "subjects" : ["Chemistry Paper 1" , " Chemistry Paper 2"]}, "Chemistry Paper 1" : {"parent" : "Chemistry", "subjects" : null, "topics" : ["Basics, Atoms, Electrons", "Calculations" , "Bonding and Structures", "Periodicity", "Equilibrium Reactions and Acid-Base"]}, "Chemistry Paper 2" : {"parent" : "Chemistry", "subjects" : null, "topics" : ["Energy", "Rates of Reaction", "Impacts of Chemistry", "Hydrocarbons", "Halogenoalkanes", "Alcohols", "Carboxylic Acids", "Spectrosopy"]}}
+    let toops = null
+    try{
+      //await AsyncStorage.setItem('topics',JSON.stringify(topics))
+    }
+    catch(e){}
     //catch(e)
     //{}
     this.CalcSubjectDecay()
@@ -341,12 +347,12 @@ class Home extends React.Component {
             //obj[keys[i]].topics[f].colour = 'rgb(125,125,0)'
           //}
         }
-        //try
-        //{
-          //await AsyncStorage.setItem('topics', JSON.stringify(obj))
-        //}
-        //catch(e)
-        //{}
+        try
+        {
+          await AsyncStorage.setItem('topics', JSON.stringify(obj))
+        }
+        catch(e)
+        {}
         let sorted = false
         while(sorted == false)
         {
@@ -623,8 +629,8 @@ class SubTopics extends React.Component {
 
     if(type === "topic")
     {
-      StorTopics[this.state.currentTopic]["topics"].push({ 'name' : [this.state.textT], 'timeStart' : Date.now(), 'type' : "topic", 'colour' : 'rgb(0,255,0)', 'changeColour' : 'rgb(0,255,0)', 'parent' : null })
-      tops.push({ 'name' : [this.state.textT], 'timeStart' : Date.now(), 'colour' : 'rgb(0,255,0)', 'changeColour' : 'rgb(0,255,0)', 'parent' : this.state.currentTopic})
+      StorTopics[this.state.currentTopic]["topics"].push({ 'name' : [this.state.textT], 'timeStart' : Date.now(), 'type' : "topic", 'colour' : 'rgb(0,255,0)', 'changeColour' : 'rgb(255,0,0)', 'parent' : null })
+      tops.push({ 'name' : [this.state.textT], 'timeStart' : 0, 'colour' : 'rgb(255,0,0)', 'changeColour' : 'rgb(0,255,0)', 'parent' : this.state.currentTopic})
       StorTopics[this.state.currentTopic]["topics"] = tops
     }
 
