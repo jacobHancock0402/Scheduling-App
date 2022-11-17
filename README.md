@@ -14,4 +14,3 @@ Edit :
 
 I am now actually giving the user the option to look at the lifetime of their topic under my algorithm, and an implementation of the sm2 active recall algorithm. As I expected, I'm not the biggest fan of this new method, as every card has a lifetime, and on the first few reviews, you'll have to be coming back to it every few days, and I structure my topics quite broadly, meaning they are quite large in size, making the task almost impossible. This is becaus the sm2 algorithm is designed to be used with flashcards, something that stores as little information as possible, and can take less than 10 seconds to recall, in comparison to my hour long recall sessions
 
-![alt text](https://github.com/jacobHan***REMOVED***0402/Scheduling-App/tree/main/assets/flavicon.png)
